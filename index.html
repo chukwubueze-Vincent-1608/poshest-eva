@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Poshest-Eva</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="welcome-popup" class="popup-overlay">
+    <div class="popup-content">
+        <h2>Welcome to Poshest-Eva</h2>
+        <p>Discover your signature glow with our curated luxury skincare collection.</p>
+        <button onclick="closePopup()">Shop Now</button>
+    </div>
+</div>
+
+  <section class="hero">
+    <h1>POSHEST-EVA</h1>
+    <p>The Science of Radiance. The Art of Self-Care.</p>
+    <div class="hero-tagline">Curated luxury skincare for the modern glow.</div>
+</section>
+
+  <section class="products" id="products"></section>
+
+  <script>
+    const products = {
+      facialskincare: {
+        facialserum: [
+          { name: "Anua Niacinamide Serum", image: "image/anua-serums.jpg", price: "7,500" },
+          { name: "La Roche-Posay Hyalu B5", image: "image/la-roche-posay-hylau-b5.jpg", price: "12,000" },
+          { name: "The Ordinary Serums", image: "image/the-ordinary-serums.jpg", price: "13,000" }
+        ],
+        facialcream: [
+          { name: "CeraVe Moisturising Cream", image: "image/cerave-moisturising-cream.jpg", price: "9,500" },
+          { name: "Nivea Soft Cream", image: "image/nivea-soft-cream.jpg", price: "8,500" }
+        ],
+        moisturiser: [
+          { name: "Neutrogena Hydro Boost Gel", image: "image/neutrogena-water-gel.jpg", price: "8,500" },
+          { name: "Cetaphil Daily Moisturiser", image: "image/cetaphil-cream.jpg", price: "9,000" },
+          { name: "Cosrx snail munchin 92", image: "image/snail-92-moist.jpg", price: "16,500"} 
+        ],
+        facialwash: [
+          { name: "Simple Face Wash", image: "image/simple-facewash.jpg", price: "5,000" },
+          { name: "Face Fact Hydrating Face Wash", image: "image/face-fact-hydrating.jpg", price: "7,500" },
+          { name: "Face Fact Foaming Face Wash", image: "image/face-fact-foaming.jpg", price: "7,500" },
+          { name: "Estelin Face Wash", image: "image/estelin-face-wash.jpg", price: "4,000" },
+          { name: "Beauty Formulary Face Wash", image: "image/beauty-formular-facewash.jpg", price: "4,000" },
+          { name: "Neutrogena Deep Clean Face Wash", image: "image/neutrogena-facewash.jpg", price: "7,500" }
+        ],
+        toner: [
+          { name: "Simple Toner", image: "image/simple-toner.jpg", price: "5,500" },
+          { name: "Estelin Toner", image: "image/estelin-toner.jpg", price: "5,000" },
+          { name: "Acwell Toner", image: "image/acwell-toner.jpg", price: "6,000" },
+          { name: "The Ordinary Toner", image: "image/the-ordinary-toner.jpg", price: "9,500" },
+          { name: "Wonder Toner", image: "image/wonder-toner.jpg", price: "5,000" }
+        ],
+        scrubs: [
+          { name: "Kuu Spa Scrubs", image: "image/kuu-spa-scrub.jpg", price: "4,000" },
+          { name: "Alpha Arbutin Scrub", image: "image/alpha-arburtin-scrub.jpg", price: "4,000" },
+          { name: "St I'ves Scrubs", image: "image/st-ives-scrub.jpg", price: "4,500" }
+        ]
+      },
+      lotions: {
+        moisturisinglotion: [
+          { name: "Dr Teals Body Lotion", image: "image/dr-teals-lotion.jpg", price: "8,000" },
+          { name: "CeraVe Moisturising Lotion", image: "image/cerave-moisturising-lotion.jpg", price: "10,000" },
+          { name: "Aveeno Daily Moisturising Lotion", image: "image/aveeno-moisturising-lotion.jpg", price: "9,500" },
+          { name: "Eos Moisturising Lotion", image: "image/eos-moisturising-lotion.jpg", price: "21,000" }
+        ],
+        brighteninglotion: [
+          { name: "Palmer's Cocoa Butter Brightening Lotion", image: "image/palmers-cocoa-lotion.jpg", price: "13,500" },
+          { name: "Advanced Clinical Lotion", image: "image/advanced-clinical-lotion.jpg", price: "16,500" },
+          { name: "Garnier Bright Complete Body Lotion", image: "image/granier-lotion.jpg", price: "8,200" }
+        ]
+      },
+      bath: [
+        { name: "Dr Teals Epsom Salt", image: "image/dr-teals-bath.jpg", price: "7,000" },
+        { name: "Dove Relaxing Body Wash", image: "image/dove-bath.jpg", price: "6,500" },
+        { name: "Yardley Lavender Bath Soap", image: "image/bath/yardley-bath.jpg", price: "3,000" },
+        { name: "Palmolive Shea Butter Body Wash", image: "image/bath/palmolive.jpg", price: "5,500" }
+      ],
+      barsoaps: [
+        { name: "Nano Soap", image: "image/nano-soap.jpg", price: "9,500"  },
+        { name: "Kojic San Single", image: "image/kojic-san-single.jpg", price: "2,000" },
+        { name: "Kojic San 3 in 1", image: "image/kojic-san-3-in-1.jpg", price: "8,500" },
+        { name: "Jam Rice Soap", image: "image/rice-soap.jpg", price: "7,500" }
+      ],
+      sunscreen: [
+          { name: "Skin Aqua UV Super Moisture Gold", image: "image/skin-aqua-spf.jpg", price: "13,500" },
+          { name: "Bioré UV Aqua Rich Watery Essence", image: "image/biore-uv-spf.jpg", price: "7,500" },
+          { name: "Nivea Sunscreen", image: "image/nivea-spf.jpg", price: "16,500" },
+          { name: "Aqua Missha", image: "image/aqua-missiah-spf.jpg", price: "12,500" }
+      ],
+    };
+
+    const container = document.getElementById("products");
+
+    for (let category in products) {
+      const categorySection = document.createElement("div");
+      categorySection.className = "category-group";
+      categorySection.innerHTML = `<h2>${format(category)}</h2>`;
+
+      const subData = products[category];
+
+      if (Array.isArray(subData)) {
+        const grid = document.createElement("div");
+        grid.className = "product-grid";
+        subData.forEach(product => { grid.innerHTML += productCard(product); });
+        categorySection.appendChild(grid);
+      } else {
+        for (let sub in subData) {
+          const subSection = document.createElement("div");
+          subSection.innerHTML = `<h3>${format(sub)}</h3>`;
+          const grid = document.createElement("div");
+          grid.className = "product-grid";
+          subData[sub].forEach(product => { grid.innerHTML += productCard(product); });
+          subSection.appendChild(grid);
+          categorySection.appendChild(subSection);
+        }
+      }
+      container.appendChild(categorySection);
+    }
+
+    function productCard(product) {
+      return `
+        <div class="card">
+          <div class="image-container">
+            <span class="verify-badge">✓ 100% Original</span>
+            <img src="${product.image}" alt="${product.name}">
+          </div>
+          <div class="card-content">
+            <h4>${product.name}</h4>
+            <p class="luxury-detail">Dermatologist Tested • Authentic Stock</p>
+            <p class="price">₦${product.price}</p>
+            <a class="whatsapp-btn" href="https://wa.me/2348037981432?text=Hello%20I%20want%20to%20order%20${encodeURIComponent(product.name)}" target="_blank">
+              Enquire via WhatsApp
+            </a>
+          </div>
+        </div>
+      `;
+    }
+
+    function format(text) {
+      return text.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^\w/, c => c.toUpperCase());
+    }
+
+    function closePopup() {
+      const popup = document.getElementById("welcome-popup");
+      popup.classList.add("fade-out"); 
+      setTimeout(() => { popup.style.display = "none"; }, 500);
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = "1";
+          entry.target.style.transform = "translateY(0)";
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.card').forEach(card => {
+      card.style.opacity = "0";
+      card.style.transform = "translateY(30px)";
+      card.style.transition = "all 0.6s ease-out";
+      observer.observe(card);
+    });
+  </script>
+</body>
+</html>
